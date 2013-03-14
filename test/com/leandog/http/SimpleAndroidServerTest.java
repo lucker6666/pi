@@ -17,5 +17,4 @@ public class SimpleAndroidServerTest {
         Response serve = server.serve("/", "/", new Properties(), new Properties(), new Properties());
         assertNotNull(serve);
     }
-    
 }
