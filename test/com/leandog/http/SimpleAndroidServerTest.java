@@ -1,6 +1,7 @@
 package com.leandog.http;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -29,6 +30,12 @@ public class SimpleAndroidServerTest {
         assertEquals(SimpleAndroidServer.MIME_JSON, serve.mimeType);
     }
     
+    @Test
+    public void itStopsWhenCommanded() throws IOException {
+        server = new SimpleAndroidServer(10000);
+        server.serve("/stop","GET", new Properties(), new Properties(), new Properties());
+        assertTrue(server.isStopped());
+    }
     
     @After
     public void shutDown() {
