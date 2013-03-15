@@ -7,7 +7,7 @@ public class Driver extends UiAutomatorTestCase {
     
     
     public void testDriver() throws Exception {
-        SimpleAndroidServer simpleAndroidServer = new SimpleAndroidServer(54767);
+        SimpleAndroidServer simpleAndroidServer = new SimpleAndroidServer(54767,getUiDevice());
         while(!simpleAndroidServer.isStopped());
     }
 
