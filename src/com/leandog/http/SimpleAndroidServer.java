@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.android.uiautomator.core.UiDevice;
-import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.nanohttpd.NanoHTTPD;
 
 public class SimpleAndroidServer extends NanoHTTPD{
@@ -25,9 +27,14 @@ public class SimpleAndroidServer extends NanoHTTPD{
         if("/stop".equals(uri)) {
             stop();
         }else {
-            String currentActivityName = device.getCurrentActivityName();
-            String currentPackageName = device.getCurrentPackageName();
-            msg = "{\"activity\":\"" + currentActivityName +"\",\"packageName\":\""+currentPackageName+"\"}";
+            try {
+                JSONObject obj = new JSONObject();
+                obj.put("activity", device.getCurrentActivityName());
+                obj.put("packageName", device.getCurrentPackageName());
+                msg = obj.toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         return new NanoHTTPD.Response(HTTP_OK,MIME_JSON,msg);
     }

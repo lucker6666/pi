@@ -7,9 +7,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
 
@@ -20,6 +21,11 @@ public class SimpleAndroidServerTest {
 
     SimpleAndroidServer server;
     UiDevice uiDevice = mock(UiDevice.class);
+    
+    private void returnActivityAndPackageName() {
+        when(uiDevice.getCurrentActivityName()).thenReturn("MainActivity");
+        when(uiDevice.getCurrentPackageName()).thenReturn("com.android");
+    }
 
     @Test
     public void itProvidesAResponse() throws IOException {
@@ -43,14 +49,25 @@ public class SimpleAndroidServerTest {
     }
     
     @Test
-    public void itTellsMeTheActivityAndPackageImCurrentlyOn() throws IOException{
-        when(uiDevice.getCurrentActivityName()).thenReturn("MainActivity");
-        when(uiDevice.getCurrentPackageName()).thenReturn("com.android");
+    public void itTellsMeThePackageImCurrentlyOn() throws Exception {
+        returnActivityAndPackageName();
         server = new SimpleAndroidServer(10000, uiDevice);
         Response response = server.serve("/currentActivity", "GET", new Properties(), new Properties(), new Properties());
-        InputStream data = response.data;
-        String activityJson = Utils.Strings.stringFrom(data);
-        assertEquals("{\"activity\":\"MainActivity\",\"packageName\":\"com.android\"}", activityJson);
+        JSONObject json = jsonFrom(response);
+        assertEquals("com.android", json.get("packageName"));
+    }
+
+    @Test
+    public void itTellsMeTheActivityImCurrentlyOn() throws Exception {
+        returnActivityAndPackageName();
+        server = new SimpleAndroidServer(10000, uiDevice);
+        Response response = server.serve("/currentActivity", "GET", new Properties(), new Properties(), new Properties());
+        JSONObject json = jsonFrom(response);
+        assertEquals("MainActivity", json.get("activity"));
+    }
+    private JSONObject jsonFrom(Response response) throws IOException, JSONException {
+        String activityJson = Utils.Strings.stringFrom(response.data);
+        return new JSONObject(activityJson);
     }
 
     @After
