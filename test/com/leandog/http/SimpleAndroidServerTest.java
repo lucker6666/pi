@@ -41,15 +41,16 @@ public class SimpleAndroidServerTest {
         server.serve("/stop", "GET", new Properties(), new Properties(), new Properties());
         assertTrue(server.isStopped());
     }
-
+    
     @Test
-    public void itTellsMeWhatActivityImCurrentlyOn() throws IOException {
+    public void itTellsMeTheActivityAndPackageImCurrentlyOn() throws IOException{
         when(uiDevice.getCurrentActivityName()).thenReturn("MainActivity");
+        when(uiDevice.getCurrentPackageName()).thenReturn("com.android");
         server = new SimpleAndroidServer(10000, uiDevice);
         Response response = server.serve("/currentActivity", "GET", new Properties(), new Properties(), new Properties());
         InputStream data = response.data;
         String activityJson = Utils.Strings.stringFrom(data);
-        assertEquals("{\"activity\":\"MainActivity\"}", activityJson);
+        assertEquals("{\"activity\":\"MainActivity\",\"packageName\":\"com.android\"}", activityJson);
     }
 
     @After
