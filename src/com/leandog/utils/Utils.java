@@ -1,4 +1,4 @@
-package com.leandog.http;
+package com.leandog.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

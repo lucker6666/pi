@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import com.android.uiautomator.core.UiDevice;
+import com.leandog.utils.Utils;
 import com.nanohttpd.NanoHTTPD.Response;
 
 public class SimpleAndroidServerTest {
