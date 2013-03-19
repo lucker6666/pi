@@ -23,13 +23,12 @@ public class SimpleAndroidServer extends NanoHTTPD{
         if("/stop".equals(uri)) {
             stop();
         }else if("/dumpWindow".equals(uri)) {
-            new NanoHTTPD.Response(HTTP_OK, MIME_XML, device.getDumpedViewHierarchyAsXML());
+            return new NanoHTTPD.Response(HTTP_OK, MIME_XML, device.getDumpedViewHierarchyAsXML());
         }else if ("/currentActivity".equals(uri)){
             return new NanoHTTPD.Response(HTTP_OK,MIME_JSON, device.getActivityAndPackageNameAsJson());
         }
-        return new NanoHTTPD.Response(HTTP_OK,MIME_JSON,"");
+        return new NanoHTTPD.Response(HTTP_NOTFOUND,MIME_PLAINTEXT,"");
     }
-
     public boolean isStopped() {
         return isStopped;
     }
