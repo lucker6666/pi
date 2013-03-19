@@ -1,5 +1,6 @@
 package com.brbw.driver;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.json.JSONException;
@@ -29,6 +30,10 @@ public class Device {
 
     public String getDumpedViewHierarchyAsXML() {
         try {
+            File file = new File("/data/local/tmp/dumpfile");
+            if(file.exists()) {
+                file.delete();
+            }
             device.dumpWindowHierarchy("dumpfile");
             return  Files.contentsOfFileFromPath("/data/local/tmp/dumpfile");
         } catch (IOException e) {
