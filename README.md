@@ -3,7 +3,7 @@ Pi - making Android's uiautomator a bit more tasty
 ------------------
 [Did someone say Pie? No Steve, not pie... Pi!](http://www.youtube.com/watch?v=Mfr7xG6smhU)
 
-Pi is simple tool that (hopefully) makes testing Android well... easy as pie.
+Pi is simple tool that (hopefully) makes driving Android's uiautomator well... easy as pie.
 
 Starting Pi
 ------------------
@@ -24,7 +24,7 @@ If you're importing the project to eclipse -
 Add the following Extenral jars:  
 * android.jar  
 * uiautomator.jar
-(These can be found in $ANDROID_HOME/platforms/android-17/)_
+(These can be found in $ANDROID_HOME/platforms/android-17/)
 
 You'll also want to add BOTH the Junit3 & Junit4 libaries - the unit tests under 'test' use JUnit4
 the main driver depends on JUnit3 as well as all jars within the /libs directory
