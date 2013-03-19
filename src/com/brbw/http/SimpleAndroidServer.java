@@ -1,10 +1,10 @@
-package com.leandog.http;
+package com.brbw.http;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.leandog.driver.Device;
+import com.brbw.driver.Device;
 import com.nanohttpd.NanoHTTPD;
 
 public class SimpleAndroidServer extends NanoHTTPD{

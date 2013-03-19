@@ -1,4 +1,4 @@
-package com.leandog.http;
+package com.brbw.http;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,8 +14,9 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
 
-import com.leandog.driver.Device;
-import com.leandog.utils.Utils;
+import com.brbw.driver.Device;
+import com.brbw.http.SimpleAndroidServer;
+import com.brbw.utils.Utils;
 import com.nanohttpd.NanoHTTPD.Response;
 
 public class SimpleAndroidServerTest {

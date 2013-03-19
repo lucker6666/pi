@@ -1,7 +1,7 @@
-package com.leandog.driver;
+package com.brbw.driver;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
-import com.leandog.http.SimpleAndroidServer;
+import com.brbw.http.SimpleAndroidServer;
 
 public class Driver extends UiAutomatorTestCase {
     

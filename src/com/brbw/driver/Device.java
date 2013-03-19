@@ -1,4 +1,4 @@
-package com.leandog.driver;
+package com.brbw.driver;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.uiautomator.core.UiDevice;
-import com.leandog.utils.Utils.Files;
+import com.brbw.utils.Utils.Files;
 
 public class Device {
 
