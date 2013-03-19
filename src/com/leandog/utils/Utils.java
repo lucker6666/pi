@@ -1,5 +1,7 @@
 package com.leandog.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -12,8 +14,14 @@ public class Utils {
                 builder.append((char) b);
                 b = data.read();
             }
+            data.close();
             return builder.toString();
         }
-
+    }
+    
+    public static class Files {
+        public static String contentsOfFileFromPath(String path) throws IOException {
+            return Strings.stringFrom(new FileInputStream(new File(path)));
+        }
     }
 }
