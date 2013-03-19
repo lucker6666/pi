@@ -11,6 +11,7 @@ import com.brbw.utils.Utils.Files;
 
 public class Device {
 
+    private static final String DUMP_FILE_PATH = "/data/local/tmp/dumpfile";
     private final UiDevice device;
 
     public Device(UiDevice device) {
@@ -30,12 +31,12 @@ public class Device {
 
     public String getDumpedViewHierarchyAsXML() {
         try {
-            File file = new File("/data/local/tmp/dumpfile");
+            File file = new File(DUMP_FILE_PATH);
             if(file.exists()) {
                 file.delete();
             }
             device.dumpWindowHierarchy("dumpfile");
-            return  Files.contentsOfFileFromPath("/data/local/tmp/dumpfile");
+            return  Files.contentsOfFileFromPath(DUMP_FILE_PATH);
         } catch (IOException e) {
             return e.getMessage();
         }
