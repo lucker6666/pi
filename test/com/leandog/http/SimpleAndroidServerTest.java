@@ -14,20 +14,15 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
 
-import com.android.uiautomator.core.UiDevice;
+import com.leandog.driver.Device;
 import com.leandog.utils.Utils;
 import com.nanohttpd.NanoHTTPD.Response;
 
 public class SimpleAndroidServerTest {
 
     SimpleAndroidServer server;
-    UiDevice uiDevice = mock(UiDevice.class);
+    Device uiDevice = mock(Device.class);
     
-    private void returnActivityAndPackageName() {
-        when(uiDevice.getCurrentActivityName()).thenReturn("MainActivity");
-        when(uiDevice.getCurrentPackageName()).thenReturn("com.android");
-    }
-
     @Test
     public void itProvidesAResponse() throws IOException {
         server = new SimpleAndroidServer(10000, uiDevice);
@@ -70,6 +65,12 @@ public class SimpleAndroidServerTest {
     private JSONObject jsonFrom(Response response) throws IOException, JSONException {
         String activityJson = Utils.Strings.stringFrom(response.data);
         return new JSONObject(activityJson);
+    }
+    
+    private void returnActivityAndPackageName() throws JSONException {
+        String json = new JSONObject().put("packageName", "com.android")
+                      .put("activity", "MainActivity").toString();
+        when(uiDevice.getActivityAndPackageNameAsJson()).thenReturn(json);
     }
 
     @After

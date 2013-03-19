@@ -5,9 +5,8 @@ import com.leandog.http.SimpleAndroidServer;
 
 public class Driver extends UiAutomatorTestCase {
     
-    
     public void testDriver() throws Exception {
-        SimpleAndroidServer simpleAndroidServer = new SimpleAndroidServer(54767,getUiDevice());
+        SimpleAndroidServer simpleAndroidServer = new SimpleAndroidServer(54767,new Device(getUiDevice()));
         while(!simpleAndroidServer.isStopped());
     }
 
