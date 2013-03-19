@@ -9,10 +9,8 @@ public class Utils {
     public static class Strings {
         public static String stringFrom(InputStream data) throws IOException {
             StringBuilder builder = new StringBuilder();
-            int b = data.read();
-            while (b > -1) {
+            for(int b = data.read(); b > -1; b = data.read()) {
                 builder.append((char) b);
-                b = data.read();
             }
             data.close();
             return builder.toString();
