@@ -24,23 +24,25 @@ public class SimpleAndroidServer extends NanoHTTPD{
     
     @Override
     public Response serve(String uri, String method, Properties header, Properties parms, Properties files) {
-        String msg = "";
         if("/stop".equals(uri)) {
             stop();
         }else if("/dumpWindow".equals(uri)) {
-            msg = getDumpedViewHierarchy();
-            new NanoHTTPD.Response(HTTP_OK, MIME_XML, msg);
-        }else{
-            try {
-                JSONObject obj = new JSONObject();
-                obj.put("activity", device.getCurrentActivityName());
-                obj.put("packageName", device.getCurrentPackageName());
-                msg = obj.toString();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            new NanoHTTPD.Response(HTTP_OK, MIME_XML, getDumpedViewHierarchy());
+        }else if ("/currentActivity".equals(uri)){
+            return new NanoHTTPD.Response(HTTP_OK,MIME_JSON,getActivityAndPackageName());
         }
-        return new NanoHTTPD.Response(HTTP_OK,MIME_JSON,msg);
+        return new NanoHTTPD.Response(HTTP_OK,MIME_JSON,"");
+    }
+
+    private String getActivityAndPackageName() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("activity", device.getCurrentActivityName());
+            obj.put("packageName", device.getCurrentPackageName());
+        } catch (JSONException e) {
+            return e.getMessage();
+        }
+        return obj.toString();
     }
 
     private String getDumpedViewHierarchy() {
@@ -48,8 +50,7 @@ public class SimpleAndroidServer extends NanoHTTPD{
             device.dumpWindowHierarchy("dumpfile");
             return  Files.contentsOfFileFromPath("/data/local/tmp/dumpfile");
         } catch (IOException e) {
-            e.printStackTrace();
-            return "";
+            return e.getMessage();
         }
     }
 

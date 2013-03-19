@@ -66,6 +66,7 @@ public class SimpleAndroidServerTest {
         JSONObject json = jsonFrom(response);
         assertEquals("MainActivity", json.get("activity"));
     }
+    
     private JSONObject jsonFrom(Response response) throws IOException, JSONException {
         String activityJson = Utils.Strings.stringFrom(response.data);
         return new JSONObject(activityJson);
