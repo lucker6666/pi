@@ -18,8 +18,8 @@ public class Utils {
     }
     
     public static class Files {
-        public static String contentsOfFileFromPath(String path) throws IOException {
-            return Strings.stringFrom(new FileInputStream(new File(path)));
+        public static String contentsOfFileFromPath(File file) throws IOException {
+            return Strings.stringFrom(new FileInputStream(file));
         }
     }
 }
