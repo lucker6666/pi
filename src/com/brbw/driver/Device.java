@@ -20,7 +20,7 @@ public class Device {
     public Device(UiDevice device) {
         this.device = device;
     }
-    
+
     @SuppressWarnings("deprecation")
     public String getActivityAndPackageNameAsJson() {
         JSONObject obj = new JSONObject();
@@ -36,11 +36,11 @@ public class Device {
     public String getDumpedViewHierarchyAsXML() {
         try {
             File file = new File(getBaseDir(), DUMP_FILE_NAME);
-            if(file.exists()) {
+            if (file.exists()) {
                 file.delete();
             }
             device.dumpWindowHierarchy(DUMP_FILE_NAME);
-            return  Files.contentsOfFileFromPath(file);
+            return Files.contentsOfFileFromPath(file);
         } catch (IOException e) {
             e.printStackTrace();
             return e.getMessage();
@@ -50,5 +50,5 @@ public class Device {
     private File getBaseDir() {
         return new File(Environment.getDataDirectory(), DUMP_FILE_BASE_DIR);
     }
-    
+
 }
