@@ -27,7 +27,7 @@ public class SimpleAndroidServer extends NanoHTTPD{
         }else if ("/currentActivity".equals(uri)){
             return new NanoHTTPD.Response(HTTP_OK,MIME_JSON, device.getActivityAndPackageNameAsJson());
         }
-        return new NanoHTTPD.Response(HTTP_NOTFOUND,MIME_PLAINTEXT,"");
+        return new NanoHTTPD.Response(HTTP_NOTFOUND,MIME_JSON,"");
     }
     public boolean isStopped() {
         return isStopped;
