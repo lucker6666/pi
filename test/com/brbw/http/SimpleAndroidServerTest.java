@@ -21,6 +21,9 @@ import com.nanohttpd.NanoHTTPD.Response;
 
 public class SimpleAndroidServerTest {
 
+    final static String URI_TO_NEVER_IMPLEMENT = "/dontFuckingImplementThisFuckingPath";
+    final static String GET_METHOD = "GET";
+
     SimpleAndroidServer server;
     Device uiDevice = mock(Device.class);
 
@@ -42,8 +45,17 @@ public class SimpleAndroidServerTest {
     }
 
     @Test
-    public void on404returnsFailedUri() {
+    public void on404returnsFailedUri() throws Exception {
+        Response response = server.serve(URI_TO_NEVER_IMPLEMENT, "GET", new Properties(), new Properties(), new Properties());
+        JSONObject json = jsonFrom(response);
+        assertEquals(URI_TO_NEVER_IMPLEMENT, json.getString("URI"));
+    }
 
+    @Test
+    public void on404returnsFailedMethod() throws Exception {
+        Response response = server.serve(URI_TO_NEVER_IMPLEMENT, GET_METHOD, new Properties(), new Properties(), new Properties());
+        JSONObject json = jsonFrom(response);
+        assertEquals(GET_METHOD, json.getString("METHOD"));
     }
 
     @Test
