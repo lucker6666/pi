@@ -22,11 +22,9 @@ public class Device {
         this.device = device;
     }
 
-    @SuppressWarnings("deprecation")
-    public String getActivityAndPackageNameAsJson() {
+    public String getPackageNameAsJson() {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("activity", device.getCurrentActivityName());
             obj.put("packageName", device.getCurrentPackageName());
         } catch (JSONException e) {
             return e.getMessage();

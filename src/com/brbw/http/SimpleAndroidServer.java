@@ -27,8 +27,8 @@ public class SimpleAndroidServer extends NanoHTTPD {
             stop();
         } else if ("/dumpWindow".equals(uri)) {
             return new NanoHTTPD.Response(HTTP_OK, MIME_XML, device.getDumpedViewHierarchyAsXML());
-        } else if ("/currentActivity".equals(uri)) {
-            return new NanoHTTPD.Response(HTTP_OK, MIME_JSON, device.getActivityAndPackageNameAsJson());
+        } else if ("/currentPackage".equals(uri)) {
+            return new NanoHTTPD.Response(HTTP_OK, MIME_JSON, device.getPackageNameAsJson());
         }
         return new NanoHTTPD.Response(HTTP_NOTFOUND, MIME_JSON, notFoundException(uri, method, header, params, files));
     }
@@ -39,7 +39,7 @@ public class SimpleAndroidServer extends NanoHTTPD {
             json.put("URI", uri);
             json.put("METHOD", method);
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return json.toString();
     }
